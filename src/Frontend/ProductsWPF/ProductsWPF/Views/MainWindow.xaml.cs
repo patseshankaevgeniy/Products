@@ -20,11 +20,6 @@ namespace ProductsWPF
             await _mainViewModel.InitializeAsync();
         }
 
-        private void BtnCreate_Click(object sender, RoutedEventArgs e)
-        {
-            AddProductWindow addProductWindow = new AddProductWindow(_mainViewModel);
-            addProductWindow.Show();
-        }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {

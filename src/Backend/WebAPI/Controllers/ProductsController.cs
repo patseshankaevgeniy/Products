@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    ImageURL = x.ImageURL,
+                    ImageId = x.ImageId,
                 })
                 .ToList();
 
@@ -39,25 +39,27 @@ namespace WebAPI.Controllers
         [HttpPost(Name = "CreateProduct")]
         public ActionResult<ProductDto> Create(ProductDto productDto)
         {
-            var product = new Product { Name = productDto.Name, ImageURL = productDto.ImageURL };
-            product = _productsService.Create(product);
+            var product = new Product 
+            {
+                Id= productDto.Id,
+                Name = productDto.Name, 
+                ImageId = productDto.ImageId
+            };
+            
+            _productsService.Create(product);
 
-            productDto.Id = product.Id;
-            productDto.Name = product.Name;
-            productDto.ImageURL = product.ImageURL;
-
-            return Created($"api/user-words/{productDto.Id}", productDto);
+            return Created($"api/products/{productDto.Id}", productDto);
         }
 
-        [HttpPatch("{id:guid}", Name = "UpdateProduct")]
+        [HttpPut("{id:guid}", Name = "UpdateProduct")]
         public ActionResult<ProductDto> Update(Guid id, ProductDto productDto)
         {
-            var product = new Product { Name = productDto.Name, ImageURL = productDto.ImageURL };
+            var product = new Product { Name = productDto.Name, ImageId = productDto.ImageId };
             product = _productsService.Update(id, product);
 
             productDto.Id = product.Id;
             productDto.Name = product.Name;
-            productDto.ImageURL = product.ImageURL;
+            productDto.ImageId = product.ImageId;
 
             return productDto;
         }

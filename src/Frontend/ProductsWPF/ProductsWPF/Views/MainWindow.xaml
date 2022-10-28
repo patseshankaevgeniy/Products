@@ -13,13 +13,12 @@
         </Grid.RowDefinitions>
 
         <Button Content="Create Product" 
-                Name="BtnCreate"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center" 
                 Grid.Row="1" 
                 Width="121" 
                 Height="30" 
-                Click="BtnCreate_Click"/>
+                Command="{Binding NavigateToAddProductCommand}"/>
 
         <ListView Grid.Row="2" 
                   Name="LViewProducts" 

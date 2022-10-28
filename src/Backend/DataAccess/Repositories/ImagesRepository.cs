@@ -22,9 +22,9 @@ namespace DataAccess.Repositories
             return image;
         }
 
-        public void Create(byte[] image)
+        public void Create(Guid id, byte[] image)
         {
-            var filePath = Path.Combine(imageFolderPath, Guid.NewGuid() + ".jpg");
+            var filePath = Path.Combine(imageFolderPath, id + ".jpg");
             File.WriteAllBytes(filePath, image);
         }
 

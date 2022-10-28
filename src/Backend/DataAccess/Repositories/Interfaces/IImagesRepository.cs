@@ -5,7 +5,7 @@ namespace DataAccess.Repositories.Interfaces
     public interface IImagesRepository
     {
         byte[] Get(Guid id);
-        void Create(byte[] image);
+        void Create(Guid id, byte[] image);
         bool Delete(Guid id);
     }
 }

@@ -25,6 +25,12 @@ namespace BusinessLogic.Services
             return image;
         }
 
+        public byte[] Create(Guid id, byte[] image)
+        {
+           _imagesRepository.Create(id, image);
+            return image;
+        }
+
         public bool Delete(Guid id)
         {
             var result = _imagesRepository.Delete(id);

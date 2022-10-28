@@ -1,33 +1,35 @@
-﻿using ProductsWPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Win32;
+using ProductsWPF.ViewModels;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ProductsWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for AddProductWindow.xaml
-    /// </summary>
     public partial class AddProductWindow : Window
     {
-        private MainViewModel _mainViewModel;
-        public AddProductWindow(MainViewModel viewModel)
+        private const string FileDialogFilter = "Image Files(*.JPG; *.PNG)|*.JPG; *.PNG | All files (*.*)|*.*";
+
+        private AddProductViewModel _viewModel;
+
+        public AddProductWindow(AddProductViewModel viewModel)
         {
-            _mainViewModel = viewModel;
+            _viewModel = viewModel;
             InitializeComponent();
             DataContext = viewModel;
         }
 
+        private void BtnAddImage_Click(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Filter = FileDialogFilter;
 
+            if (fileDialog.ShowDialog() == true)
+            {
+                var bitMapImage = new BitmapImage(new System.Uri(fileDialog.FileName));
+                NewImg.Source = bitMapImage;
+                _viewModel.Image = File.ReadAllBytes(fileDialog.FileName);
+            }
+        }
     }
 }

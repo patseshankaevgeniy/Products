@@ -28,9 +28,6 @@ namespace DataAccess.Repositories
         public ProductEntity Create(ProductEntity product)
         {
             var products = ReadFromFile();
-
-            product.Id = Guid.NewGuid();
-            //_imagesRepository.Create()
             products.Add(product);
 
             SaveIntoFile(products);
@@ -47,7 +44,7 @@ namespace DataAccess.Repositories
                 if (item.Id == id)
                 {
                     item.Name = product.Name;
-                    item.ImageName = product.ImageName;
+                    item.ImageId = product.ImageId;
                     break;
                 }
             }

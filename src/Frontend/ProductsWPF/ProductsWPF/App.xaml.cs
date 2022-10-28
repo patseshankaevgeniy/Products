@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProductsWPF.Services;
 using ProductsWPF.ViewModels;
+using ProductsWPF.Views;
 using System;
 using System.IO;
 using System.Windows;
@@ -35,8 +37,14 @@ namespace ProductsWPF
 
         private void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
+            services.AddTransient<AddProductWindow>();
+            services.AddTransient<AddProductViewModel>();
+
+            services.AddSingleton<INavigationService, NavigationService>();
+
             services.AddBusinessLogicDependencies();
         }
     }

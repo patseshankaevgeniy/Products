@@ -22,6 +22,13 @@ namespace WebAPI.Controllers
             return File(image, "image/jpeg");
         }
 
+        [HttpPost("{id:guid}", Name = "CreateImage")]
+        public ActionResult Create(Guid id, byte[] image)
+        {
+            _imagesService.Create(id, image);
+            return File(image, "image/jpeg");
+        }
+
         [HttpDelete("{id:guid}", Name = "GetImage")]
         public ActionResult Delete(Guid id)
         {

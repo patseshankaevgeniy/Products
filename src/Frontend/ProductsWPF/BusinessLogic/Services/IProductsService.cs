@@ -9,5 +9,6 @@ namespace BusinessLogic.Services
     {
         Task<List<ProductDto>> GetProductsAsync();
         Task DeleteProductsAsync(Guid id);
+        Task CreateProductAsync(string name, byte[] image);
     }
 }

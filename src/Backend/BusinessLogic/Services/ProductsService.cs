@@ -26,7 +26,7 @@ namespace BusinessLogic.Services
                  {
                      Id = x.Id,
                      Name = x.Name,
-                     ImageURL = ""
+                     ImageId = x.ImageId
                  })
                  .ToList();
         }
@@ -35,11 +35,12 @@ namespace BusinessLogic.Services
         {
             var productEntity = new ProductEntity
             {
-                ImageName = product.ImageURL,
+                Id = product.Id,
+                ImageId = product.ImageId,
                 Name = product.Name,
             };
 
-            productEntity = _productsRepository.Create(productEntity);
+            _productsRepository.Create(productEntity);
 
             return product;
         }
@@ -49,7 +50,7 @@ namespace BusinessLogic.Services
             var productEntity = new ProductEntity
             {
                 Id = id,
-                ImageName = product.ImageURL,
+                ImageId = product.ImageId,
                 Name = product.Name,
             };
 
