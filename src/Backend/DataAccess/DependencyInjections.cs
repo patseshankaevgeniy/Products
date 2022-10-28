@@ -10,6 +10,7 @@ namespace DataAccess
         public static IServiceCollection AddDataAccessDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<IImagesRepository, ImagesRepository>();
 
             return services;
         }
