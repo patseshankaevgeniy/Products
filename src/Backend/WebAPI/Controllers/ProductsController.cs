@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult<ProductDto> Create(ProductDto productDto)
         {
-            if (string.IsNullOrEmpty(productDto.Name) || productDto.Id == null || productDto.ImageId == null)
+            if (string.IsNullOrEmpty(productDto.Name) || productDto.Id == default || productDto.ImageId == default)
             {
                 throw new ValidationException("Not all object fields are filled");
             }
@@ -66,12 +66,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id:guid}", Name = "UpdateProduct")]
-        [ProducesResponseType(StatusCodes.Status202Accepted, Type = typeof(ProductDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiError))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult<ProductDto> Update(Guid id, ProductDto productDto)
         {
-            if (string.IsNullOrEmpty(productDto.Name) || productDto.Id == null || productDto.ImageId == null)
+            if (string.IsNullOrEmpty(productDto.Name) || productDto.Id == default || productDto.ImageId == default)
             {
                 throw new ValidationException("Not all object fields are filled");
             }
@@ -92,6 +92,10 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult Delete(Guid id)
         {
+            if (id == default)
+            {
+                throw new ValidationException("Wrong id");
+            }
             var succeded = _productsService.Delete(id);
             return succeded
                 ? NoContent()
