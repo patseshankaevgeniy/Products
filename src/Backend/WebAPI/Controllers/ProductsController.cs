@@ -1,5 +1,7 @@
+using BusinessLogic.Exceptions;
 using BusinessLogic.Models;
 using BusinessLogic.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/products")]
+    [Produces("application/json")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _productsService;
@@ -20,6 +23,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet(Name = "GetProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiError))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult<IEnumerable<ProductDto>> GetAll()
         {
             var products = _productsService.GetAll();
@@ -37,23 +43,39 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost(Name = "CreateProduct")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProductDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiError))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult<ProductDto> Create(ProductDto productDto)
         {
-            var product = new Product 
+            if (string.IsNullOrEmpty(productDto.Name) || productDto.Id == null || productDto.ImageId == null)
             {
-                Id= productDto.Id,
-                Name = productDto.Name, 
+                throw new ValidationException("Not all object fields are filled");
+            }
+
+            var product = new Product
+            {
+                Id = productDto.Id,
+                Name = productDto.Name,
                 ImageId = productDto.ImageId
             };
-            
+
             _productsService.Create(product);
 
             return Created($"api/products/{productDto.Id}", productDto);
         }
 
         [HttpPut("{id:guid}", Name = "UpdateProduct")]
+        [ProducesResponseType(StatusCodes.Status202Accepted, Type = typeof(ProductDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiError))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult<ProductDto> Update(Guid id, ProductDto productDto)
         {
+            if (string.IsNullOrEmpty(productDto.Name) || productDto.Id == null || productDto.ImageId == null)
+            {
+                throw new ValidationException("Not all object fields are filled");
+            }
+
             var product = new Product { Name = productDto.Name, ImageId = productDto.ImageId };
             product = _productsService.Update(id, product);
 
@@ -65,6 +87,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id:guid}", Name = "DeleteProduct")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiError))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiError))]
         public ActionResult Delete(Guid id)
         {
             var succeded = _productsService.Delete(id);

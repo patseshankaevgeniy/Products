@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Models;
+﻿using BusinessLogic.Exceptions;
+using BusinessLogic.Models;
 using BusinessLogic.Services.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Repositories.Interfaces;
@@ -33,6 +34,10 @@ namespace BusinessLogic.Services
 
         public Product Create(Product product)
         {
+            if (string.IsNullOrEmpty(product.Name) || product.Id == null || product.ImageId == null)
+            {
+                throw new ValidationException("Not all object fields are filled");
+            }
             var productEntity = new ProductEntity
             {
                 Id = product.Id,
@@ -47,6 +52,11 @@ namespace BusinessLogic.Services
 
         public Product Update(Guid id, Product product)
         {
+            if (string.IsNullOrEmpty(product.Name) || product.Id == null || product.ImageId == null)
+            {
+                throw new ValidationException("Not all object fields are filled");
+            }
+
             var productEntity = new ProductEntity
             {
                 Id = id,
@@ -54,7 +64,7 @@ namespace BusinessLogic.Services
                 Name = product.Name,
             };
 
-            productEntity = _productsRepository.Update(id, productEntity);
+            _productsRepository.Update(id, productEntity);
             return product;
         }
 

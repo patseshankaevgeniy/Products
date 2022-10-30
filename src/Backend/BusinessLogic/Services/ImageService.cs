@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Services.Interfaces;
+﻿using BusinessLogic.Exceptions;
+using BusinessLogic.Services.Interfaces;
 using DataAccess.Repositories.Interfaces;
 using System;
 
@@ -15,19 +16,26 @@ namespace BusinessLogic.Services
 
         public byte[] Get(Guid id)
         {
-            
-            var image = _imagesRepository.Get(id);
-            if (image == null)
+            if (id == null)
             {
 
             }
-            
+            var image = _imagesRepository.Get(id);
+            if (image == null)
+            {
+                throw new NotFoundException($"There is no picture with id: {id}");
+            }
+
             return image;
         }
 
         public byte[] Create(Guid id, byte[] image)
         {
-           _imagesRepository.Create(id, image);
+            if (image == null)
+            {
+                throw new ValidationException("Image is empty");
+            }
+            _imagesRepository.Create(id, image);
             return image;
         }
 
