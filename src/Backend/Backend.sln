@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{69D1652D-A617-434A-BFEF-D269A0E124D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{99C79420-39C0-4FE2-9A6A-1923EBD509FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{70818724-7AF4-4289-BBB1-DC17092E1367}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69D1652D-A617-434A-BFEF-D269A0E124D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D1652D-A617-434A-BFEF-D269A0E124D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D1652D-A617-434A-BFEF-D269A0E124D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D1652D-A617-434A-BFEF-D269A0E124D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C79420-39C0-4FE2-9A6A-1923EBD509FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C79420-39C0-4FE2-9A6A-1923EBD509FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C79420-39C0-4FE2-9A6A-1923EBD509FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C79420-39C0-4FE2-9A6A-1923EBD509FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70818724-7AF4-4289-BBB1-DC17092E1367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70818724-7AF4-4289-BBB1-DC17092E1367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70818724-7AF4-4289-BBB1-DC17092E1367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70818724-7AF4-4289-BBB1-DC17092E1367}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {713FA615-BDC5-4622-B0F2-FEBA26471BC0}
+	EndGlobalSection
+EndGlobal
